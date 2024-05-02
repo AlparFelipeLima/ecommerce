@@ -7,7 +7,7 @@ app.controller('HomeController', ($scope, $http) => {
 
         $http.get('http://localhost:3333/api/products', {
             headers: {
-                'Authorization': 'Bearer ' + token + 'sdf'
+                'Authorization': 'Bearer ' + token
             }
         }).then((response) => {
             $scope.products = response.data;
