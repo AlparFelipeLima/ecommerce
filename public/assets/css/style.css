@@ -1,0 +1,19 @@
+body {
+    min-height: 100vh;
+}
+
+.main-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#login-page .card,
+#create-account-page .card {
+    width: 400px;
+}
+
+.navbar {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
