@@ -17,3 +17,16 @@ body {
 .navbar {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
+
+#admin-home table img {
+    height: 50px;
+    width: auto;
+}
+
+.actions-col {
+    width: 130px;
+}
+
+.card {
+    min-width: 300px;
+}

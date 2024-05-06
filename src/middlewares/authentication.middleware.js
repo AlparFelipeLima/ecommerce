@@ -14,6 +14,21 @@ export function authenticationMiddleware(req, res, next) {
 
     try {
         jwt.verify(token, 'felipe')
+
+        const decoded = jwt.decode(token)
+
+        /*
+        {
+            userId: 1,
+            name: 'Felipe Lima',
+            email: 'felipe.lima@alpar.com.br',
+            admin: true,
+            iat: 1715003384,
+            exp: 1715010584
+        }
+        */
+        req.user = decoded;
+
         next()
     } catch (e) {
         return res.status(401).json({ message: 'Invalid token.' })

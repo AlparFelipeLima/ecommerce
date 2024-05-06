@@ -1,10 +1,11 @@
 import { Router } from 'express'
 import { UsersController } from '../controllers/users.controller.js'
+import { authenticationMiddleware } from '../middlewares/authentication.middleware.js'
 
 export const usersRouter = Router()
 const usersController = new UsersController()
 
 usersRouter.post('/', usersController.createUser)
-usersRouter.get('/', usersController.getUser)
-usersRouter.patch('/:id', usersController.updateUser)
-usersRouter.delete('/:id', usersController.deleteUser)
+usersRouter.get('/', authenticationMiddleware, usersController.getUser)
+usersRouter.patch('/', authenticationMiddleware, usersController.updateUser)
+usersRouter.delete('/', authenticationMiddleware, usersController.deleteUser)

@@ -1,15 +1,10 @@
-const app = angular.module('ecommerce-app', [])
-app.controller('HomeController', ($scope, $http) => {
+app.controller('HomeController', ($scope, $http, AdminService, SessionService) => {
     $scope.products = []
 
     $scope.getProducts = () => {
         const token = localStorage.getItem('token')
 
-        $http.get('http://localhost:3333/api/products', {
-            headers: {
-                'Authorization': 'Bearer ' + token
-            }
-        }).then((response) => {
+        $http.get('http://localhost:3333/api/products').then((response) => {
             $scope.products = response.data;
         })
     }
@@ -27,6 +22,7 @@ app.controller('HomeController', ($scope, $http) => {
         }
     }
 
-    $scope.verifyLogin()
+    $scope.isAdmin = AdminService.isAdmin();
+    $scope.isAuthenticated = SessionService.isAuthenticated()
     $scope.getProducts()
 })

@@ -17,8 +17,10 @@ export class UsersRepository {
         return user
     }
 
-    async getUser() {
-        const user = await this.prisma.user.findFirst()
+    async getUser(id) {
+        const user = await this.prisma.user.findUnique({
+            where: { id }
+        })
 
         return user
     }

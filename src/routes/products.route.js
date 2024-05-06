@@ -1,11 +1,12 @@
 import { Router } from 'express'
 import { ProductsController } from '../controllers/products.controller.js'
 import { authenticationMiddleware } from '../middlewares/authentication.middleware.js'
+import { adminCheckMiddleware } from '../middlewares/admin-check.middleware.js'
 
 export const productsRouter = Router()
 const productsController = new ProductsController()
 
-productsRouter.post('/', authenticationMiddleware, productsController.createProduct)
-productsRouter.get('/', authenticationMiddleware, productsController.getProducts)
-productsRouter.patch('/:id', authenticationMiddleware, productsController.updateProduct)
-productsRouter.delete('/:id', authenticationMiddleware, productsController.deleteProduct)
+productsRouter.get('/', productsController.getProducts)
+productsRouter.post('/', authenticationMiddleware, adminCheckMiddleware, productsController.createProduct)
+productsRouter.patch('/:id', authenticationMiddleware, adminCheckMiddleware, productsController.updateProduct)
+productsRouter.delete('/:id', authenticationMiddleware, adminCheckMiddleware, productsController.deleteProduct)

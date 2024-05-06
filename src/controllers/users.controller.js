@@ -6,12 +6,6 @@ export class UsersController {
     constructor() {
         this.repository = new UsersRepository();
     }
-
-    getUser = async (req, res) => {
-        const user = await this.repository.getUser()
-        return res.json(user)
-    }
-
     createUser = async (req, res) => {
         const user = req.body;
 
@@ -20,8 +14,17 @@ export class UsersController {
         return res.json(createdUser)
     }
 
+
+    getUser = async (req, res) => {
+        const id = req.user.userId;
+
+        const user = await this.repository.getUser(id)
+
+        return res.json(user)
+    }
+
     updateUser = async (req, res) => {
-        const id = Number(req.params.id)
+        const id = req.user.userId;
         const user = req.body
 
         const userUpdated = await this.repository.updateUser({ id, ...user })
@@ -30,7 +33,7 @@ export class UsersController {
     }
 
     deleteUser = async (req, res) => {
-        const id = Number(req.params.id)
+        const id = req.user.userId;
 
         await this.repository.deleteUser(id)
 
