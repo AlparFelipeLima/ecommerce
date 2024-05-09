@@ -74,7 +74,11 @@ export class CartsRepository {
         closed: true,
       },
       include: {
-        items: true,
+        items: {
+          include: {
+            product: true
+          }
+        },
       },
     });
 
@@ -88,7 +92,11 @@ export class CartsRepository {
         OR: [{ closed: false }, { closed: null }],
       },
       include: {
-        items: true,
+        items: {
+          include: {
+            product: true
+          }
+        },
       },
     });
 
