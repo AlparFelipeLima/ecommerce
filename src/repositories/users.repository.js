@@ -25,6 +25,13 @@ export class UsersRepository {
         return user
     }
 
+    async getUsers() {
+        const users = await this.prisma.user.findMany()
+
+        return users
+    }
+
+
     async getUserByEmail(email) {
         const user = await this.prisma.user.findUnique({ where: { email } })
 

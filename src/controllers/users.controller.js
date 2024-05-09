@@ -23,6 +23,12 @@ export class UsersController {
         return res.json(user)
     }
 
+    getUsers = async (req, res) => {
+        const users = await this.repository.getUsers()
+
+        return res.json(users)
+    }
+
     updateUser = async (req, res) => {
         const id = req.user.userId;
         const user = req.body

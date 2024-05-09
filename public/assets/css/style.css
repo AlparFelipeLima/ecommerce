@@ -30,3 +30,35 @@ body {
 .card {
     min-width: 300px;
 }
+
+#create-product form {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    position: relative;
+}
+
+#create-product form img {
+    position: absolute;
+    top: 50%;
+    min-height: 20px;
+    left: calc(100% + 32px);
+    width: 200px;
+    transform: translateY(-50%);
+}
+
+#edit-product form {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    position: relative;
+}
+
+#edit-product form img {
+    position: absolute;
+    top: 50%;
+    min-height: 20px;
+    left: calc(100% + 32px);
+    width: 200px;
+    transform: translateY(-50%);
+}

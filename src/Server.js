@@ -4,6 +4,7 @@ import bodyParser from 'body-parser'
 import { usersRouter } from './routes/users.route.js'
 import { sessionRouter } from './routes/session.route.js'
 import { productsRouter } from './routes/products.route.js'
+import { cartsRouter } from './routes/carts.route.js'
 
 export class Server {
     constructor(port) {
@@ -26,6 +27,7 @@ export class Server {
         this.app.use(express.static('public'))
         this.app.use('/api/users', usersRouter)
         this.app.use('/api/products', productsRouter)
+        this.app.use('/api/carts', cartsRouter)
         this.app.use('/api/session', sessionRouter)
     }
 

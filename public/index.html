@@ -49,7 +49,7 @@
         <div class="row">
             <div class="col d-flex flex-wrap justify-content-center gap-4">
                 <div ng-repeat="product in products" class="card" style="width: 18rem;">
-                    <img src="{{product.imageUrl}}" class="card-img-top" alt="{{product.name}}">
+                    <img ng-src="{{product.imageUrl}}" class="card-img-top" alt="{{product.name}}">
                     <div class="card-body">
                         <h5 class="card-title">{{product.name}}</h5>
                         <p class="card-text">{{product.description}}</p>
@@ -72,7 +72,7 @@
     <script src="./assets/js/app.js"></script>
     <script src="./assets/js/services/session.service.js"></script>
     <script src="./assets/js/services/admin.service.js"></script>
-    <script src="./assets/js/controllers/index.js"></script>
+    <script src="./assets/js/controllers/home.controller.js"></script>
 </body>
 
 </html>

@@ -8,5 +8,6 @@ const productsController = new ProductsController()
 
 productsRouter.get('/', productsController.getProducts)
 productsRouter.post('/', authenticationMiddleware, adminCheckMiddleware, productsController.createProduct)
+productsRouter.get('/:id', productsController.getProduct)
 productsRouter.patch('/:id', authenticationMiddleware, adminCheckMiddleware, productsController.updateProduct)
 productsRouter.delete('/:id', authenticationMiddleware, adminCheckMiddleware, productsController.deleteProduct)
