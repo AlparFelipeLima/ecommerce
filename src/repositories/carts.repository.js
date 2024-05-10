@@ -27,14 +27,14 @@ export class CartsRepository {
             cartId: cartExists.id,
           },
         });
+      } else {
+        await this.prisma.cartItem.update({
+          where: { id: cartItem.id },
+          data: {
+            quantity: cartItem.quantity + 1,
+          },
+        });
       }
-
-      await this.prisma.cartItem.update({
-        where: { id: cartItem.id },
-        data: {
-          quantity: cartItem.quantity + 1,
-        },
-      });
 
       const cart = await this.prisma.cart.findUnique({
         where: { id: cartExists.id },
@@ -76,8 +76,8 @@ export class CartsRepository {
       include: {
         items: {
           include: {
-            product: true
-          }
+            product: true,
+          },
         },
       },
     });
@@ -94,8 +94,8 @@ export class CartsRepository {
       include: {
         items: {
           include: {
-            product: true
-          }
+            product: true,
+          },
         },
       },
     });
@@ -105,40 +105,48 @@ export class CartsRepository {
 
   async updateCart({ userId, productId, quantity, closed }) {
     const cartExists = await this.getCart(userId);
-
-    let cartItem = await this.prisma.cartItem.update({
+    let cartItem = await this.prisma.cartItem.findFirst({
       where: { cartId: cartExists.id, productId },
-      data: {
-        quantity
-      }
-    })
+    });
 
-    if (!cartItem) {
-      const product = await this.prisma.product.findUnique({ where: { id: productId } })
+    if (cartItem) {
+      await this.prisma.cartItem.update({
+        where: {id: cartItem.id},
+        data: {
+          quantity,
+        },
+      });
+    } else {
+      const product = await this.prisma.product.findUnique({
+        where: { id: productId },
+      });
       cartItem = await this.prisma.cartItem.create({
         data: {
           productId,
           cartId: cartExists.id,
-          quantity,
+          quantity: quantity || 1,
           price: product.price,
-        }
-      })
+        },
+      });
     }
 
-    if (typeof closed === 'boolean') {
+    if (typeof closed === "boolean") {
       const cartItems = await this.prisma.cartItem.findMany({
-        where: { cartId: cartExists.id }
-      })
-      const total = cartItems.reduce((acc, cur) => acc + cur.price * cur.quantity, 0)
+        where: { cartId: cartExists.id },
+      });
+      const total = cartItems.reduce(
+        (acc, cur) => acc + cur.price * cur.quantity,
+        0
+      );
 
       await this.prisma.cart.update({
         where: { id: cartExists.id },
         data: {
           closed,
           closedAt: closed ? new Date() : null,
-          total: total
-        }
-      })
+          total: total,
+        },
+      });
     }
 
     const cart = await this.getCart(userId);
@@ -147,7 +155,13 @@ export class CartsRepository {
   }
 
   async deleteCartItem({ userId, productId }) {
-    const cart = await this.getCart(userId)
-    await this.prisma.cartItem.delete({ where: { cartId: cart.id, productId } });
+    const cart = await this.getCart(userId);
+    const cartItem = await this.prisma.cartItem.findFirst({
+      where: { cartId: cart.id, productId },
+    })
+
+    await this.prisma.cartItem.delete({
+      where: {id: cartItem.id}
+    });
   }
 }

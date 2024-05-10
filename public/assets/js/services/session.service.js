@@ -29,18 +29,20 @@ app.service('SessionService', function () {
         return token
     }
 
-    this.logout = () => {
+    this.logout = (redirect = true) => {
         localStorage.removeItem('token')
-        location.href = '/login.html'
-    }
-
-    this.verifyLogin = () => {
-        if (!this.isAuthenticated()) {
-            this.logout()
+        if(redirect) {
+            location.href = '/login.html'
         }
     }
 
-    this.createVerifyLoginInterval = () => {
-        setInterval(this.verifyLogin, 10000)
+    this.verifyLogin = (redirect = true) => {
+        if (!this.isAuthenticated()) {
+            this.logout(redirect)
+        }
+    }
+
+    this.createVerifyLoginInterval = (fn) => {
+        setInterval(fn || this.verifyLogin, 10000)
     }
 })

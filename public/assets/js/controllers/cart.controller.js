@@ -7,7 +7,43 @@ app.controller('CartController', ($scope, $http, SessionService, AdminService) =
                 authorization: `Bearer ${SessionService.getToken()}`
             }
         }).then((response) => {
-            $scope.items = response.data.items;
+            if(response.data) {
+                $scope.items = response.data.items;
+                $scope.total = $scope.items.reduce((acc, cur) => acc + cur.price * cur.quantity, 0)
+            }
+        })
+    }
+
+    function updateCart(productId, quantity) {
+        $http.patch('http://localhost:3333/api/carts', {
+            productId,
+            quantity,
+        }, {
+            headers: {
+                authorization: `Bearer ${SessionService.getToken()}`
+            }
+        })
+    }
+
+    $scope.deleteCartItem = (productId)=>{
+        $http.delete('http://localhost:3333/api/carts/' + productId, {
+            headers: {
+                authorization: `Bearer ${SessionService.getToken()}`
+            }
+        }).then(()=>{
+            getCart();
+        })
+    }
+
+    $scope.closeCart = ()=>{
+        $http.patch('http://localhost:3333/api/carts', {
+            closed: true
+        }, {
+            headers: {
+                authorization: `Bearer ${SessionService.getToken()}`
+            }
+        }).then(()=>{
+            location.href = 'purchases.html'
         })
     }
 
@@ -21,6 +57,7 @@ app.controller('CartController', ($scope, $http, SessionService, AdminService) =
         item.quantity = item.quantity < 1 ? 1 : item.quantity;
 
         $scope.total = $scope.items.reduce((acc, cur) => acc + cur.price * cur.quantity, 0)
+        updateCart(item.productId, item.quantity)
     }
 
     $scope.increase = (id) => {
@@ -34,6 +71,8 @@ app.controller('CartController', ($scope, $http, SessionService, AdminService) =
         $scope.onQuantityChange(id)
     }
 
+    $scope.logout = SessionService.logout
+    $scope.isAuthenticated = SessionService.isAuthenticated()
+    $scope.isAdmin = AdminService.isAdmin()
     getCart()
-    $scope.total = $scope.items.reduce((acc, cur) => acc + cur.price * cur.quantity, 0)
 })

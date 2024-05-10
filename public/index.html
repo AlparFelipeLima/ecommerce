@@ -29,8 +29,14 @@
                     <li ng-if="isAuthenticated" class="nav-item">
                         <a href="/cart.html" class="nav-link">Carrinho</a>
                     </li>
+                    <li ng-if="isAuthenticated" class="nav-item">
+                        <a href="/purchases.html" class="nav-link">Compras realizadas</a>
+                    </li>
                     <li ng-if="isAuthenticated && isAdmin" class="nav-item">
                         <a href="/admin" class="nav-link">Admin</a>
+                    </li>
+                    <li ng-if="!isAuthenticated" class="nav-item">
+                        <a href="/login.html" class="nav-link">Entrar</a>
                     </li>
                     <li ng-if="isAuthenticated" class="nav-item">
                         <button ng-click="logout()" class="nav-link">Sair</button>
@@ -54,7 +60,7 @@
                         <h5 class="card-title">{{product.name}}</h5>
                         <p class="card-text">{{product.description}}</p>
                         <p class="card-text">{{product.price | currency}}</p>
-                        <a href="#" class="btn btn-primary">Adicionar ao carrinho</a>
+                        <button ng-click="addToCart(product.id)" type="button" class="btn btn-primary w-100">Adicionar ao carrinho</button>
                     </div>
                 </div>
                 <p ng-if="products.length == 0" class="text-center alert alert-light" role="alert">

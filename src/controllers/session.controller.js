@@ -26,7 +26,7 @@ export class SessionController {
             name: user.name,
             email: user.email,
             admin: user.admin,
-        }, 'felipe', { expiresIn: '2h' })
+        }, 'felipe', { expiresIn: '1d' })
 
         return res.json({ token })
     }

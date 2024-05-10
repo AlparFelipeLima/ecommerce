@@ -1,5 +1,4 @@
-const app = angular.module('ecommerce-app', [])
-app.controller('LoginController', ($scope, $http) => {
+app.controller('LoginController', ($scope, $http, SessionService) => {
     $scope.email = ""
     $scope.password = ""
     $scope.loading = false;
@@ -21,13 +20,5 @@ app.controller('LoginController', ($scope, $http) => {
         })
     }
 
-    $scope.verifyLogin = () => {
-        const token = localStorage.getItem('token')
-
-        if (token) {
-            location.href = "/"
-        }
-    }
-
-    $scope.verifyLogin()
+    SessionService.verifyLogin(false)
 })

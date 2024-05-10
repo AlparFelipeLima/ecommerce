@@ -87,6 +87,7 @@ body {
     object-fit: cover;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
     border-radius: 16px;
+    padding: 0 !important;
 }
 
 #cart-page .cart-item p {
@@ -107,3 +108,87 @@ body {
     text-align: center;
     padding: 0;
 }
+
+.btn.text-danger {
+    transition: 0.2s;
+}
+.btn.text-danger:hover {
+    opacity: 1 !important;
+}
+
+.flex-1 {
+    flex: 1;
+}
+
+
+#purchases .purchase {
+    background-color: #f8f8f8;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    border-radius: 16px;
+    padding: 48px 16px 16px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+#purchases .purchase .purchase-id {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+#purchases .purchase .purchase-date {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    opacity: 0.8;
+}
+#purchases .purchase p {
+    margin: 0;
+}
+#purchases .purchase img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin-right: 16px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+}
+
+#purchases .purchase .products {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+#purchases .purchase .product {
+    display: flex;
+    margin-bottom: 8px;
+    align-items: center;
+}
+
+#purchases .purchase .product-info {
+    display: flex;
+    flex-direction: column;
+}
+
+
+#purchases .purchase .product-price {
+    display: flex;
+}
+
+
+#purchases .purchase .product-price p {
+    margin-right: 8px;
+}
+
+
+#purchases .purchase .purchase-total {
+    flex: 1;
+    max-width: 100px;
+    text-align: right;
+}
+
+
